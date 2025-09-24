@@ -31,14 +31,15 @@
             ./hosts/desktop
 
             sops-nix.nixosModules.sops
-          ];
-        };
-      };
+            home-manager.nixosModules.home-manager
 
-      homeConfigurations = {
-        senti = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs;
-          modules = [ ./home/senti.nix ];
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+
+              home-manager.users.senti = import ./home/senti.nix;
+            }
+          ];
         };
       };
     };
