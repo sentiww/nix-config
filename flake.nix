@@ -38,6 +38,7 @@
               home-manager.useUserPackages = true;
 
               home-manager.users.senti = import ./home/senti.nix;
+              home-manager.backupFileExtension = "backup";
             }
           ];
         };

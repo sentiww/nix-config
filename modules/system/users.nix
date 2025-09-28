@@ -3,7 +3,7 @@
   users.users.senti = {
     isNormalUser = true;
     description = "Senti";
-    extraGroups = [ "wheel" "networkmanager" ]; # etc.
+    extraGroups = [ "wheel" "networkmanager" ];
     packages = with pkgs; [ ];
     shell = pkgs.bash;
   };
