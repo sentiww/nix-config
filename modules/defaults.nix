@@ -5,7 +5,6 @@
     ./system/boot.nix
     ./system/network.nix
     ./system/firewall.nix
-    ./system/nvidia.nix
     ./system/packages.nix
     ./system/services.nix
     ./system/desktop.nix

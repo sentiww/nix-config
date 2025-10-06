@@ -37,36 +37,4 @@
     userName = "sentiww";
     userEmail = "wojciech.warwas01@gmail.com";
   };
-
-  programs.fish = {
-    enable = true;
-
-    plugins = [
-      # TODO: Fix command not found z, fzf, forgit, foreign-env
-      { name = "z"; src = pkgs.fishPlugins.z; }
-      { name = "fzf"; src = pkgs.fishPlugins.fzf-fish; }
-      { name = "forgit"; src = pkgs.fishPlugins.forgit; }
-      { name = "foreign-env"; src = pkgs.fishPlugins.foreign-env; }
-    ];
-
-    interactiveShellInit = ''
-      set -gx EDITOR nvim
-      set -gx PATH $HOME/.dotnet/tools $PATH
-    '';
-  };
-
-  programs.bash = {
-    enable = true;
-    bashrcExtra = ''
-      if [ -x "${pkgs.fish}/bin/fish" ] && [ -z "$__HM_SESSIONS_SHELL" ]; then
-        export __HM_SESSIONS_SHELL=1
-        exec ${pkgs.fish}/bin/fish
-      fi
-    '';
-  };
-
-  programs.nix-index = {
-    enable = true;
-    enableFishIntegration = true;
-  };
 }

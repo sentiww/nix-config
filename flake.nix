@@ -28,7 +28,26 @@
           inherit system;
           modules = [
             ./modules/defaults.nix
+            ./modules/system/nvidia.nix
             ./hosts/desktop
+
+            sops-nix.nixosModules.sops
+            home-manager.nixosModules.home-manager
+
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+
+              home-manager.users.senti = import ./home/senti.nix;
+              home-manager.backupFileExtension = "backup";
+            }
+          ];
+        };
+        laptop = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./modules/defaults.nix
+            ./hosts/laptop
 
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
