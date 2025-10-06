@@ -8,4 +8,8 @@
     layout = "us"; # Keyboard layout
     variant = "";   # Keyboard variant
   };
+
+  nix.extraOptions = ''
+     experimental-features = nix-command flakes
+  '';
 }

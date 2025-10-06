@@ -50,7 +50,7 @@
     ];
   };
 
-  programs.kitty = lib.mkForce {
+  programs.kitty = {
     enable = true;
     settings = {
       confirm_os_window_close = 0;
@@ -84,5 +84,11 @@
       in
         (builtins.concatStringsSep "," mappings) + " Symbols Nerd Font";
     };
+  };
+
+  programs.nix-index =
+  {
+    enable = true;
+    enableFishIntegration = true;
   };
 }
