@@ -13,6 +13,7 @@
     discord
     spotify
     gimp
+    kitty
     # .NET
     dotnet-sdk_9
     omnisharp-roslyn
@@ -47,5 +48,9 @@
       # Enable a plugin (here grc for colorized command output) from nixpkgs
       { name = "grc"; src = pkgs.fishPlugins.grc.src; }
     ];
+  };
+
+  programs.kitty = {
+    enable = true;
   };
 }
