@@ -2,7 +2,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./../../modules/extras/ssh.nix
+    ./../../modules/extras/ssh-server.nix
     ./../../modules/extras/wireguard.nix
   ];
 

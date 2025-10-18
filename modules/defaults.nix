@@ -9,5 +9,6 @@
     ./system/services.nix
     ./system/desktop.nix
     ./system/users.nix
+    ./system/virtualisation.nix
   ];
 }
