@@ -2,7 +2,11 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./../../modules/extras/ssh.nix
+    ./../../modules/extras/wireguard.nix
   ];
+
+  hostWireguardIp = "10.0.0.2";
 
   networking.hostName = "nixos"; # Define your hostname.
   time.timeZone = "Europe/Warsaw"; # Set your time zone.
