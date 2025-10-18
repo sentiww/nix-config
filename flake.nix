@@ -61,7 +61,7 @@
             stylix.nixosModules.stylix
 
             {
-              stylix.enable = true;
+              stylix.enable = false;
               stylix.image = ./wallpaper.png; 
             }
 
