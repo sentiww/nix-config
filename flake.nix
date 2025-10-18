@@ -13,9 +13,15 @@
     # Secrets handling (SOPS)
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Stylix
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, sops-nix, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, stylix, sops-nix, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -33,6 +39,7 @@
 
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
+            stylix.nixosModules.stylix
 
             {
               home-manager.useGlobalPkgs = true;
@@ -51,6 +58,12 @@
 
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
+            stylix.nixosModules.stylix
+
+            {
+              stylix.enable = true;
+              stylix.image = ./wallpaper.png; 
+            }
 
             {
               home-manager.useGlobalPkgs = true;
