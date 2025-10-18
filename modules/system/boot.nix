@@ -6,4 +6,6 @@
   boot.kernelParams = [
     "nvidia-modeset.hdmi_deepcolor=0"
   ];
+  boot.blacklistedKernelModules = [ "kvm_amd" "kvm" ];
+
 }

@@ -3,6 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ./../../modules/extras/ssh-common.nix
+    ./../../modules/extras/ssh-server.nix
     ./../../modules/extras/wireguard.nix
   ];
 

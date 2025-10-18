@@ -31,8 +31,6 @@
     # IDE
     jetbrains.rider
     vscode
-    # VMs
-    virtualbox
   ];
 
   programs.git = {
