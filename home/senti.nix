@@ -14,6 +14,7 @@
     spotify
     gimp
     kitty
+    blender
     # .NET
     dotnet-sdk_9
     omnisharp-roslyn
