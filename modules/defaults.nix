@@ -1,6 +1,7 @@
 { ... }:
 {
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnsupportedSystem = true;
   imports = [
     ./system/boot.nix
     ./system/network.nix

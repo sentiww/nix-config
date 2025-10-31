@@ -15,6 +15,8 @@
     gimp
     kitty
     blender
+    teams-for-linux
+    bitwarden-desktop
     # .NET
     dotnet-sdk_9
     omnisharp-roslyn
@@ -29,6 +31,7 @@
     nodePackages.live-server
     # IAC
     terraform
+    act
     # IDE
     jetbrains.rider
     vscode

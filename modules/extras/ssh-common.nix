@@ -1,4 +1,4 @@
 { config, pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [ waypipe ];
+  environment.systemPackages = with pkgs; [ waypipe remmina ];
 }
