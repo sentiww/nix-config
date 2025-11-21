@@ -22,8 +22,7 @@ run_deadnix=true
 statix_args=()
 deadnix_args=(
   --fail
-  --exclude ./hosts/laptop/hardware-configuration.nix
-  --exclude ./hosts/desktop/hardware-configuration.nix
+  --exclude ./hosts/laptop/hardware-configuration.nix ./hosts/desktop/hardware-configuration.nix
 )
 
 while [[ $# -gt 0 ]]; do
