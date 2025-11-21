@@ -1,0 +1,37 @@
+name: Nix Formatting
+
+on:
+  push:
+    paths:
+      - '**/*.nix'
+      - flake.lock
+      - flake.nix
+  pull_request:
+    paths:
+      - '**/*.nix'
+      - flake.lock
+      - flake.nix
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  format-check:
+    name: nixfmt-rfc-style -- --check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v11
+
+      - name: Setup magic cache
+        uses: DeterminateSystems/magic-nix-cache-action@v4
+
+      - name: Check formatting
+        run: |
+          git ls-files -z '*.nix' \
+            | grep -zv 'hardware-configuration\.nix$' \
+            | xargs -0 -r nix run nixpkgs#nixfmt-rfc-style -- --check
