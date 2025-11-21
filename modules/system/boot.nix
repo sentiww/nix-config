@@ -1,5 +1,4 @@
-_:
-{
+_: {
   boot = {
     loader = {
       systemd-boot.enable = true;
@@ -8,6 +7,9 @@ _:
     kernelParams = [
       "nvidia-modeset.hdmi_deepcolor=0"
     ];
-    blacklistedKernelModules = [ "kvm_amd" "kvm" ];
+    blacklistedKernelModules = [
+      "kvm_amd"
+      "kvm"
+    ];
   };
 }

@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   isGnome = config.desktop.environment == "gnome";
   extensionPackages =
@@ -13,13 +18,14 @@ let
         "just-perfection"
         "user-themes"
       ];
-      mkExtension = name:
+      mkExtension =
+        name:
         if builtins.hasAttr name pkgs.gnomeExtensions then
           [ (builtins.getAttr name pkgs.gnomeExtensions) ]
         else
           lib.warn "Requested GNOME extension `${name}` is not packaged in this nixpkgs; skipping." [ ];
     in
-      lib.concatMap mkExtension requestedExtensions;
+    lib.concatMap mkExtension requestedExtensions;
 in
 {
   config = lib.mkIf isGnome {
@@ -32,7 +38,7 @@ in
       desktopManager.gnome.enable = true;
       xkb = {
         layout = "us"; # Keyboard layout
-        variant = "";   # Keyboard variant
+        variant = ""; # Keyboard variant
       };
     };
 
@@ -41,16 +47,17 @@ in
 
     xdg.portal = {
       enable = true;
-      config.common.default = [ "gnome" "gtk" ];
+      config.common.default = [
+        "gnome"
+        "gtk"
+      ];
       extraPortals = [
         pkgs.xdg-desktop-portal-gnome
         pkgs.xdg-desktop-portal-gtk
       ];
     };
 
-    environment.systemPackages =
-      [ pkgs.gnome-tweaks ]
-      ++ extensionPackages;
+    environment.systemPackages = [ pkgs.gnome-tweaks ] ++ extensionPackages;
 
     fonts.packages = with pkgs; [
       font-awesome

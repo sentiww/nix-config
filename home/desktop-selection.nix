@@ -4,7 +4,8 @@ let
     gnome = ./gnome;
   };
   selectedModule = lib.getAttr desktopEnvironment desktopModules;
-in {
+in
+{
   imports = [
     selectedModule
   ];

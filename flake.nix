@@ -9,7 +9,7 @@
     # Home Manager
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-  
+
     # Secrets handling (SOPS)
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -26,10 +26,19 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, stylix, sops-nix, nix-index-database, ... }:
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      stylix,
+      sops-nix,
+      nix-index-database,
+      ...
+    }:
     let
       system = "x86_64-linux";
-    in {
+    in
+    {
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
           inherit system;
@@ -43,17 +52,20 @@
             stylix.nixosModules.stylix
             nix-index-database.nixosModules.nix-index
 
-            ({ config, ... }: {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = {
-                  desktopEnvironment = config.desktop.environment;
+            (
+              { config, ... }:
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  extraSpecialArgs = {
+                    desktopEnvironment = config.desktop.environment;
+                  };
+                  users.senti = import ./home/senti.nix;
+                  backupFileExtension = "hm-bak";
                 };
-                users.senti = import ./home/senti.nix;
-                backupFileExtension = "hm-bak";
-              };
-            })
+              }
+            )
           ];
         };
         laptop = nixpkgs.lib.nixosSystem {
@@ -69,20 +81,23 @@
 
             {
               stylix.enable = false;
-              stylix.image = ./wallpaper.png; 
+              stylix.image = ./wallpaper.png;
             }
 
-            ({ config, ... }: {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = {
-                  desktopEnvironment = config.desktop.environment;
+            (
+              { config, ... }:
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  extraSpecialArgs = {
+                    desktopEnvironment = config.desktop.environment;
+                  };
+                  users.senti = import ./home/senti.nix;
+                  backupFileExtension = "hm-bak";
                 };
-                users.senti = import ./home/senti.nix;
-                backupFileExtension = "hm-bak";
-              };
-            })
+              }
+            )
           ];
         };
       };

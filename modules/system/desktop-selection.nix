@@ -3,7 +3,8 @@ let
   # Change this line to pick your desktop; the name is derived automatically.
   selectedDesktopModule = ./desktops/gnome.nix;
   selectedDesktop = lib.removeSuffix ".nix" (builtins.baseNameOf selectedDesktopModule);
-in {
+in
+{
   imports = [
     selectedDesktopModule
   ];

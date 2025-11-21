@@ -1,5 +1,4 @@
-_:
-{
+_: {
   imports = [
     ./hardware-configuration.nix
     ./../../modules/extras/ssh-common.nix

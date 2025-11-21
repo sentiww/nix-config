@@ -59,9 +59,8 @@ in
     };
 
     vscode =
-    let
-      codexExtension =
-        pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      let
+        codexExtension = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {
             name = "chatgpt";
             publisher = "openai";
@@ -70,8 +69,7 @@ in
           }
         ];
 
-      dotnetMarketplaceExtensions =
-        pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        dotnetMarketplaceExtensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {
             name = "csdevkit";
             publisher = "ms-dotnettools";
@@ -85,89 +83,99 @@ in
             sha256 = "sha256-eSt4iT/o4mp17Dasr0gDr3SsQHX3R6jGmW4V/2KymnY=";
           }
         ];
-    in
-    {
-      enable = true;
-      package = pkgs.vscode;
-      mutableExtensionsDir = false;
+      in
+      {
+        enable = true;
+        package = pkgs.vscode;
+        mutableExtensionsDir = false;
 
-      profiles = {
-        default = {
-          enableUpdateCheck = false;
-          enableExtensionUpdateCheck = false;
-        };
-
-        dotnet = {
-          extensions = with pkgs.vscode-extensions; [
-            ms-dotnettools.csharp
-            ms-dotnettools.vscode-dotnet-runtime
-            ms-azuretools.vscode-docker
-            editorconfig.editorconfig
-          ] ++ codexExtension ++ dotnetMarketplaceExtensions;
-
-          userSettings = {
-            "[csharp]" = {
-              "editor.defaultFormatter" = "ms-dotnettools.csharp";
-              "editor.formatOnSave" = true;
-            };
-            "workbench.editor.enablePreview" = false;
-            "editor.inlineSuggest.enabled" = true;
-            "editor.codeLens" = true;
-            "omnisharp.enableDecompilationSupport" = true;
-            "omnisharp.enableRoslynAnalyzers" = true;
-            "omnisharp.enableEditorConfigSupport" = true;
-            "omnisharp.organizeImportsOnFormat" = true;
-            "omnisharp.useModernNet" = true;
+        profiles = {
+          default = {
+            enableUpdateCheck = false;
+            enableExtensionUpdateCheck = false;
           };
-        };
 
-        react = {
-          extensions = with pkgs.vscode-extensions; [
-            dbaeumer.vscode-eslint
-            esbenp.prettier-vscode
-            bradlc.vscode-tailwindcss
-            formulahendry.auto-rename-tag
-          ] ++ codexExtension;
+          dotnet = {
+            extensions =
+              with pkgs.vscode-extensions;
+              [
+                ms-dotnettools.csharp
+                ms-dotnettools.vscode-dotnet-runtime
+                ms-azuretools.vscode-docker
+                editorconfig.editorconfig
+              ]
+              ++ codexExtension
+              ++ dotnetMarketplaceExtensions;
 
-          userSettings = {
-            "[javascript]" = {
-              "editor.defaultFormatter" = "esbenp.prettier-vscode";
-              "editor.formatOnSave" = true;
-            };
-            "[javascriptreact]" = {
-              "editor.defaultFormatter" = "esbenp.prettier-vscode";
-              "editor.formatOnSave" = true;
-            };
-            "[typescript]" = {
-              "editor.defaultFormatter" = "esbenp.prettier-vscode";
-              "editor.formatOnSave" = true;
-            };
-            "[typescriptreact]" = {
-              "editor.defaultFormatter" = "esbenp.prettier-vscode";
-              "editor.formatOnSave" = true;
-            };
-            "eslint.validate" = [
-              "javascript"
-              "javascriptreact"
-              "typescript"
-              "typescriptreact"
-            ];
-            "editor.codeActionsOnSave" = {
-              "source.fixAll" = true;
-              "source.organizeImports" = true;
+            userSettings = {
+              "[csharp]" = {
+                "editor.defaultFormatter" = "ms-dotnettools.csharp";
+                "editor.formatOnSave" = true;
+              };
+              "workbench.editor.enablePreview" = false;
+              "editor.inlineSuggest.enabled" = true;
+              "editor.codeLens" = true;
+              "omnisharp.enableDecompilationSupport" = true;
+              "omnisharp.enableRoslynAnalyzers" = true;
+              "omnisharp.enableEditorConfigSupport" = true;
+              "omnisharp.organizeImportsOnFormat" = true;
+              "omnisharp.useModernNet" = true;
             };
           };
-        };
 
-        nix = {
-          extensions = with pkgs.vscode-extensions; [
-            jnoortheen.nix-ide
-            mkhl.direnv
-            tamasfe.even-better-toml
-          ] ++ codexExtension;
+          react = {
+            extensions =
+              with pkgs.vscode-extensions;
+              [
+                dbaeumer.vscode-eslint
+                esbenp.prettier-vscode
+                bradlc.vscode-tailwindcss
+                formulahendry.auto-rename-tag
+              ]
+              ++ codexExtension;
+
+            userSettings = {
+              "[javascript]" = {
+                "editor.defaultFormatter" = "esbenp.prettier-vscode";
+                "editor.formatOnSave" = true;
+              };
+              "[javascriptreact]" = {
+                "editor.defaultFormatter" = "esbenp.prettier-vscode";
+                "editor.formatOnSave" = true;
+              };
+              "[typescript]" = {
+                "editor.defaultFormatter" = "esbenp.prettier-vscode";
+                "editor.formatOnSave" = true;
+              };
+              "[typescriptreact]" = {
+                "editor.defaultFormatter" = "esbenp.prettier-vscode";
+                "editor.formatOnSave" = true;
+              };
+              "eslint.validate" = [
+                "javascript"
+                "javascriptreact"
+                "typescript"
+                "typescriptreact"
+              ];
+              "editor.codeActionsOnSave" = {
+                "source.fixAll" = true;
+                "source.organizeImports" = true;
+              };
+            };
+          };
+
+          nix = {
+            extensions =
+              with pkgs.vscode-extensions;
+              [
+                jnoortheen.nix-ide
+                mkhl.direnv
+                tamasfe.even-better-toml
+              ]
+              ++ codexExtension;
+          };
         };
       };
-    };
 
     fish = {
       enable = true;
@@ -176,7 +184,10 @@ in
       '';
       plugins = [
         # Enable a plugin (here grc for colorized command output) from nixpkgs
-        { name = "grc"; inherit (pkgs.fishPlugins.grc) src; }
+        {
+          name = "grc";
+          inherit (pkgs.fishPlugins.grc) src;
+        }
       ];
     };
 
@@ -190,28 +201,29 @@ in
         window_padding_width = 10;
         background_opacity = "0.5";
         background_blur = 5;
-        symbol_map = let
-          mappings = [
-            "U+23FB-U+23FE"
-            "U+2B58"
-            "U+E200-U+E2A9"
-            "U+E0A0-U+E0A3"
-            "U+E0B0-U+E0BF"
-            "U+E0C0-U+E0C8"
-            "U+E0CC-U+E0CF"
-            "U+E0D0-U+E0D2"
-            "U+E0D4"
-            "U+E700-U+E7C5"
-            "U+F000-U+F2E0"
-            "U+2665"
-            "U+26A1"
-            "U+F400-U+F4A8"
-            "U+F67C"
-            "U+E000-U+E00A"
-            "U+F300-U+F313"
-            "U+E5FA-U+E62B"
-          ];
-        in
+        symbol_map =
+          let
+            mappings = [
+              "U+23FB-U+23FE"
+              "U+2B58"
+              "U+E200-U+E2A9"
+              "U+E0A0-U+E0A3"
+              "U+E0B0-U+E0BF"
+              "U+E0C0-U+E0C8"
+              "U+E0CC-U+E0CF"
+              "U+E0D0-U+E0D2"
+              "U+E0D4"
+              "U+E700-U+E7C5"
+              "U+F000-U+F2E0"
+              "U+2665"
+              "U+26A1"
+              "U+F400-U+F4A8"
+              "U+F67C"
+              "U+E000-U+E00A"
+              "U+F300-U+F313"
+              "U+E5FA-U+E62B"
+            ];
+          in
           (builtins.concatStringsSep "," mappings) + " Symbols Nerd Font";
       };
     };

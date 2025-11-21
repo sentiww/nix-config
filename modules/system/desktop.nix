@@ -1,7 +1,8 @@
 { lib, ... }:
 let
   inherit (lib) mkOption types;
-in {
+in
+{
   options.desktop.environment = mkOption {
     type = types.enum [ "gnome" ];
     default = "gnome";
@@ -14,6 +15,6 @@ in {
   };
 
   config.nix.extraOptions = ''
-     experimental-features = nix-command flakes
+    experimental-features = nix-command flakes
   '';
 }

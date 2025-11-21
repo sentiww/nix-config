@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   gtkTheme = {
     name = "Flat-Remix-GTK-Red-Darkest-fullPanel";
@@ -20,50 +25,53 @@ let
   wallpaperSource = ../../wallpaper/wallpaper.png;
   wallpaperTarget = "${config.home.homeDirectory}/.local/share/backgrounds/nixos-gnome.png";
   conkyConfig = ''
-    conky.config = {
-      alignment = 'top_right';
-      background = true;
-      default_color = '#f6f6f6';
-      double_buffer = true;
-      font = 'Cantarell 11';
-      gap_x = 60;
-      gap_y = 60;
-      minimum_height = 400;
-      minimum_width = 260;
-      maximum_width = 260;
-      own_window = true;
-      own_window_argb_value = 150;
-      own_window_argb_visual = true;
-      own_window_class = 'Conky';
-      own_window_type = 'dock';
-      own_window_hints = 'undecorated,sticky,skip_taskbar,skip_pager,below';
-      update_interval = 1;
-      use_xft = true;
-      imlib_cache_size = 0;
-    };
+        conky.config = {
+          alignment = 'top_right';
+          background = true;
+          default_color = '#f6f6f6';
+          double_buffer = true;
+          font = 'Cantarell 11';
+          gap_x = 60;
+          gap_y = 60;
+          minimum_height = 400;
+          minimum_width = 260;
+          maximum_width = 260;
+          own_window = true;
+          own_window_argb_value = 150;
+          own_window_argb_visual = true;
+          own_window_class = 'Conky';
+          own_window_type = 'dock';
+          own_window_hints = 'undecorated,sticky,skip_taskbar,skip_pager,below';
+          update_interval = 1;
+          use_xft = true;
+          imlib_cache_size = 0;
+        };
 
-    conky.text = [[
-''${image ~/.config/conky/alterf/assets/overlay.png -p 0,0 -s 260x260}
-''${offset 20}''${font Cantarell:bold:size=26}''${color #ff4d67}''${time %H:%M}
-''${offset 20}''${font Cantarell:size=12}''${color #f6f6f6}''${time %A, %d %B}
+        conky.text = [[
+    ''${image ~/.config/conky/alterf/assets/overlay.png -p 0,0 -s 260x260}
+    ''${offset 20}''${font Cantarell:bold:size=26}''${color #ff4d67}''${time %H:%M}
+    ''${offset 20}''${font Cantarell:size=12}''${color #f6f6f6}''${time %A, %d %B}
 
-''${offset 20}''${color #ff4d67}CPU ''${color #f6f6f6}''${cpu cpu0}% ''${cpubar 6,110}
-''${offset 20}''${color #ff4d67}GPU ''${color #f6f6f6}''${exec bash -c "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits 2>/dev/null | head -n1 || echo N/A"}%
-''${offset 20}''${color #ff4d67}RAM ''${color #f6f6f6}''${memperc}% ''${membar 6,110}
-''${offset 20}''${color #ff4d67}NET ''${if_up enp3s0}''${color #f6f6f6}⬆ ''${upspeed enp3s0} ⬇ ''${downspeed enp3s0}''${else}''${if_up wlp3s0}''${color #f6f6f6}⬆ ''${upspeed wlp3s0} ⬇ ''${downspeed wlp3s0}''${else}''${color #f6f6f6}No link''${endif}''${endif}
+    ''${offset 20}''${color #ff4d67}CPU ''${color #f6f6f6}''${cpu cpu0}% ''${cpubar 6,110}
+    ''${offset 20}''${color #ff4d67}GPU ''${color #f6f6f6}''${exec bash -c "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits 2>/dev/null | head -n1 || echo N/A"}%
+    ''${offset 20}''${color #ff4d67}RAM ''${color #f6f6f6}''${memperc}% ''${membar 6,110}
+    ''${offset 20}''${color #ff4d67}NET ''${if_up enp3s0}''${color #f6f6f6}⬆ ''${upspeed enp3s0} ⬇ ''${downspeed enp3s0}''${else}''${if_up wlp3s0}''${color #f6f6f6}⬆ ''${upspeed wlp3s0} ⬇ ''${downspeed wlp3s0}''${else}''${color #f6f6f6}No link''${endif}''${endif}
 
-''${offset 20}''${color #ff4d67}''${font Cantarell:bold:size=14}Now Playing
-''${offset 20}''${color #f6f6f6}''${exec playerctl metadata --format '{{ artist }} - {{ title }}'}
-    ]];
+    ''${offset 20}''${color #ff4d67}''${font Cantarell:bold:size=14}Now Playing
+    ''${offset 20}''${color #f6f6f6}''${exec playerctl metadata --format '{{ artist }} - {{ title }}'}
+        ]];
   '';
 in
 {
-  home.packages = lib.mkAfter (with pkgs; [
-    conky
-    gtkTheme.package
-    iconTheme.package
-    shellTheme.package
-  ]);
+  home.packages = lib.mkAfter (
+    with pkgs;
+    [
+      conky
+      gtkTheme.package
+      iconTheme.package
+      shellTheme.package
+    ]
+  );
 
   gtk = {
     enable = true;

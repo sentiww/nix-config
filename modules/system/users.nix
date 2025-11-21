@@ -5,7 +5,13 @@
   users.users.senti = {
     isNormalUser = true;
     description = "Senti";
-    extraGroups = [ "wheel" "networkmanager" "vboxusers" "docker" "seat" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "vboxusers"
+      "docker"
+      "seat"
+    ];
     packages = with pkgs; [ ];
     shell = pkgs.fish;
     openssh.authorizedKeys.keys = [
