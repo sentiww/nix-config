@@ -1,0 +1,34 @@
+name: NixOS Builds
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: build nixosConfigurations/${{ matrix.configuration }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration:
+          - desktop
+          - laptop
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v11
+
+      - name: Setup magic cache
+        uses: DeterminateSystems/magic-nix-cache-action@v4
+
+      - name: Build ${{ matrix.configuration }}
+        run: |
+          nix build \
+            ".#nixosConfigurations.${{ matrix.configuration }}.config.system.build.toplevel"
