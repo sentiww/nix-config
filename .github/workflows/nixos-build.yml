@@ -1,8 +1,9 @@
 name: NixOS Builds
 
 on:
-  push:
-  pull_request:
+  # Disabled for now, need to setup own actions runner :D
+  # push:
+  # pull_request:
   workflow_dispatch:
 
 permissions:
