@@ -30,8 +30,5 @@ jobs:
       - name: Setup magic cache
         uses: DeterminateSystems/magic-nix-cache-action@v4
 
-      - name: Run statix
-        run: nix run nixpkgs#statix -- check
-
-      - name: Run deadnix
-        run: nix run nixpkgs#deadnix -- --fail --exclude ./hosts/laptop/hardware-configuration.nix ./hosts/desktop/hardware-configuration.nix
+      - name: Run statix & deadnix
+        run: ./scripts/run-lints.sh

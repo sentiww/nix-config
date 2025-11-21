@@ -23,4 +23,4 @@ jobs:
         uses: DeterminateSystems/magic-nix-cache-action@v4
 
       - name: Run flake checks
-        run: nix flake check
+        run: ./scripts/flake-check.sh
