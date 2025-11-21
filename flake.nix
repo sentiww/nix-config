@@ -81,7 +81,7 @@
 
             {
               stylix.enable = false;
-              stylix.image = ./wallpaper.png;
+              stylix.image = ./assets/wallpapers/wallpaper.png;
             }
 
             (

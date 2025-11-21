@@ -22,7 +22,7 @@ let
     package = pkgs.bibata-cursors;
     size = 24;
   };
-  wallpaperSource = ../../wallpaper/wallpaper.png;
+  wallpaperSource = ../../assets/wallpapers/wallpaper.png;
   wallpaperTarget = "${config.home.homeDirectory}/.local/share/backgrounds/nixos-gnome.png";
   conkyConfig = ''
         conky.config = {
