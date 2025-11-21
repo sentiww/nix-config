@@ -1,0 +1,5 @@
+# Generated files violate some style rules; ignore them.
+ignore = [
+  "hosts/desktop/hardware-configuration.nix",
+  "hosts/laptop/hardware-configuration.nix"
+]

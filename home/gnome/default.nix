@@ -68,8 +68,7 @@ in
   gtk = {
     enable = true;
     theme = gtkTheme;
-    iconTheme = iconTheme;
-    cursorTheme = cursorTheme;
+    inherit iconTheme cursorTheme;
   };
 
   dconf.settings = {
@@ -135,7 +134,7 @@ in
     };
 
     "org/gnome/shell/extensions/user-theme" = {
-      name = shellTheme.name;
+      inherit (shellTheme) name;
     };
   };
 

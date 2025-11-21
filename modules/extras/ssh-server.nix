@@ -1,25 +1,30 @@
 { config, pkgs, lib, ... }:
 {
-  services.xserver = {
-    enable = true;
-    displayManager.lightdm.enable = lib.mkForce false;
-    displayManager.gdm.enable = lib.mkForce true;
-    desktopManager.gnome.enable = true;
-    videoDrivers = [ "dummy" ];
-    xrandrHeads = [
-      {
-        output = "Virtual-1";
-        primary = true;
-        monitorConfig = ''
-          Option "PreferredMode" "1920x1080"
-        '';
-      }
-    ];
-  };
+  services = {
+    xserver = {
+      enable = true;
+      displayManager.lightdm.enable = lib.mkForce false;
+      displayManager.gdm.enable = lib.mkForce true;
+      desktopManager.gnome.enable = true;
+      videoDrivers = [ "dummy" ];
+      xrandrHeads = [
+        {
+          output = "Virtual-1";
+          primary = true;
+          monitorConfig = ''
+            Option "PreferredMode" "1920x1080"
+          '';
+        }
+      ];
+    };
 
-  services.xrdp = {
-    enable = true;
-    defaultWindowManager = "gnome-session";
+    xrdp = {
+      enable = true;
+      defaultWindowManager = "gnome-session";
+    };
+
+    displayManager.autoLogin.enable = false;
+    getty.autologinUser = null;
   };
 
   environment.etc."X11/xorg.conf.d/10-dummy.conf".text = ''
@@ -45,11 +50,10 @@
 
   networking.firewall.allowedTCPPorts = [ 3389 ];
 
-  services.displayManager.autoLogin.enable = false;
-  services.getty.autologinUser = null;
-
-  systemd.targets.sleep.enable = false;
-  systemd.targets.suspend.enable = false;
-  systemd.targets.hibernate.enable = false;
-  systemd.targets.hybrid-sleep.enable = false;
+  systemd.targets = {
+    sleep.enable = false;
+    suspend.enable = false;
+    hibernate.enable = false;
+    hybrid-sleep.enable = false;
+  };
 }

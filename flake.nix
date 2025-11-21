@@ -48,14 +48,15 @@
             nix-index-database.nixosModules.nix-index
 
             ({ config, ... }: {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {
-                desktopEnvironment = config.desktop.environment;
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  desktopEnvironment = config.desktop.environment;
+                };
+                users.senti = import ./home/senti.nix;
+                backupFileExtension = "hm-bak";
               };
-
-              home-manager.users.senti = import ./home/senti.nix;
-              home-manager.backupFileExtension = "hm-bak";
             })
           ];
         };
@@ -76,14 +77,15 @@
             }
 
             ({ config, ... }: {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {
-                desktopEnvironment = config.desktop.environment;
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  desktopEnvironment = config.desktop.environment;
+                };
+                users.senti = import ./home/senti.nix;
+                backupFileExtension = "hm-bak";
               };
-
-              home-manager.users.senti = import ./home/senti.nix;
-              home-manager.backupFileExtension = "hm-bak";
             })
           ];
         };
