@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 {
   services = {
     pulseaudio.enable = false; # Disable PulseAudio, use PipeWire

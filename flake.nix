@@ -26,13 +26,9 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, sops-nix, nix-index-database, ... }@inputs:
+  outputs = { nixpkgs, home-manager, stylix, sops-nix, nix-index-database, ... }:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
     in {
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   hardware.rtl-sdr.enable = true;
   boot.kernelParams = [ "modprobe.blacklist=dvb_usb_rtl28xxu" ]; 
