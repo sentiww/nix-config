@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 
 {
+  programs.nix-index-database.comma.enable = true;
+  programs.command-not-found.enable = false;
+
   environment.systemPackages = with pkgs; [
     git
     curl
@@ -14,5 +17,6 @@
     fzf
     fishPlugins.grc
     grc
+    wofi
   ];
 }

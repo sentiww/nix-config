@@ -9,6 +9,7 @@
     ./system/packages.nix
     ./system/services.nix
     ./system/desktop.nix
+    ./system/desktop-selection.nix
     ./system/users.nix
     ./system/virtualisation.nix
   ];

@@ -1,28 +1,50 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
-  services.openssh = {
+  services.xserver = {
     enable = true;
-    allowSFTP = true;
-    settings = {
-      X11Forwarding = true;
-      X11UseLocalhost = false;
-      PasswordAuthentication = false;
-      PermitRootLogin = "no";
-    };
+    displayManager.lightdm.enable = lib.mkForce false;
+    displayManager.gdm.enable = lib.mkForce true;
+    desktopManager.gnome.enable = true;
+    videoDrivers = [ "dummy" ];
+    xrandrHeads = [
+      {
+        output = "Virtual-1";
+        primary = true;
+        monitorConfig = ''
+          Option "PreferredMode" "1920x1080"
+        '';
+      }
+    ];
   };
 
-  # Enable the GNOME RDP components
-  services.gnome.gnome-remote-desktop.enable = true;
-
-  # Ensure the service starts automatically at boot so the settings panel appears
-  systemd.services.gnome-remote-desktop = {
-    wantedBy = [ "graphical.target" ];
+  services.xrdp = {
+    enable = true;
+    defaultWindowManager = "gnome-session";
   };
 
-  # Open the default RDP port (3389)
+  environment.etc."X11/xorg.conf.d/10-dummy.conf".text = ''
+    Section "Device"
+        Identifier "DummyDevice"
+        Driver "dummy"
+        Option "SWCursor" "true"
+    EndSection
+
+    Section "Monitor"
+        Identifier "Virtual-1"
+        Option "PreferredMode" "1920x1080"
+    EndSection
+
+    Section "Screen"
+        Identifier "Screen0"
+        Device "DummyDevice"
+        Monitor "Virtual-1"
+    EndSection
+  '';
+
+  environment.variables.WLR_NO_HARDWARE_CURSORS = "1";
+
   networking.firewall.allowedTCPPorts = [ 3389 ];
 
-  # Disable autologin to avoid session conflicts
   services.displayManager.autoLogin.enable = false;
   services.getty.autologinUser = null;
 

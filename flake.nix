@@ -19,9 +19,14 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Prebuilt nix-index database
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, sops-nix, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, stylix, sops-nix, nix-index-database, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -40,14 +45,18 @@
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
             stylix.nixosModules.stylix
+            nix-index-database.nixosModules.nix-index
 
-            {
+            ({ config, ... }: {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {
+                desktopEnvironment = config.desktop.environment;
+              };
 
               home-manager.users.senti = import ./home/senti.nix;
-              home-manager.backupFileExtension = "backup";
-            }
+              home-manager.backupFileExtension = "hm-bak";
+            })
           ];
         };
         laptop = nixpkgs.lib.nixosSystem {
@@ -59,19 +68,23 @@
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
             stylix.nixosModules.stylix
+            nix-index-database.nixosModules.nix-index
 
             {
               stylix.enable = false;
               stylix.image = ./wallpaper.png; 
             }
 
-            {
+            ({ config, ... }: {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {
+                desktopEnvironment = config.desktop.environment;
+              };
 
               home-manager.users.senti = import ./home/senti.nix;
-              home-manager.backupFileExtension = "backup";
-            }
+              home-manager.backupFileExtension = "hm-bak";
+            })
           ];
         };
       };
