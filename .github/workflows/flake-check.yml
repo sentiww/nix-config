@@ -1,0 +1,26 @@
+name: Flake Checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  flake-check:
+    name: nix flake check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v11
+
+      - name: Setup magic cache
+        uses: DeterminateSystems/magic-nix-cache-action@v4
+
+      - name: Run flake checks
+        run: nix flake check
