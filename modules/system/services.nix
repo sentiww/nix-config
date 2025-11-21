@@ -1,4 +1,4 @@
-{ ... }:
+_:
 {
   services = {
     pulseaudio.enable = false; # Disable PulseAudio, use PipeWire
@@ -10,7 +10,7 @@
     };
     printing.enable = true; # Enable CUPS for printing
   };
-  
+
   security.rtkit.enable = true;
 
   programs.steam = {
