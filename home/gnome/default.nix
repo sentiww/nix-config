@@ -143,7 +143,6 @@ in
 
   xdg.configFile."conky/alterf.conf".text = conkyConfig;
   xdg.configFile."conky/alterf/assets/overlay.png".source = ../../assets/conky/alterf/overlay.png;
-  xdg.configFile."conky/alterf/README.md".source = ../../assets/conky/alterf/README.md;
 
   systemd.user.services.conky-alterf = {
     Unit = {
