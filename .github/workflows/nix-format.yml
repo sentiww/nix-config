@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   format-check:
-    name: nixfmt-rfc-style -- --check
+    name: nixfmt-rfc-style check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
