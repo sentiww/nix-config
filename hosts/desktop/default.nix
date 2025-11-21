@@ -5,6 +5,7 @@
     ./../../modules/extras/ssh-common.nix
     ./../../modules/extras/ssh-server.nix
     ./../../modules/extras/wireguard.nix
+    ./../../modules/extras/rtl-sdr.nix
   ];
 
   hostWireguardIp = "10.0.0.2";
