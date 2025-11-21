@@ -36,7 +36,7 @@
     # IAC
     terraform
     act
-    
+
     # IDE
     jetbrains.rider
   ];
