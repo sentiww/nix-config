@@ -14,7 +14,7 @@ let
       name = "csdevkit";
       publisher = "ms-dotnettools";
       version = "1.81.7";
-      sha256 = "sha256-pCq1xUmxn2nSk6aKisXA6+89UFjMEYZjNGXxOKuoQoE=";
+      sha256 = "sha256-gY8lGeasntCEi3ubm+9jYlqOxQZn02aAPfCHTGAY4KU=";
     }
     {
       name = "intellij-idea-keybindings";

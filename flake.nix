@@ -14,11 +14,6 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Stylix
-    stylix = {
-      url = "github:nix-community/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     # Prebuilt nix-index database
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -29,19 +24,29 @@
   outputs =
     {
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
-      stylix,
       sops-nix,
       nix-index-database,
       ...
     }:
     let
       system = "x86_64-linux";
+
+      pkgsUnstable = import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in
     {
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
           inherit system;
+
+          specialArgs = {
+            inherit pkgsUnstable;
+          };
+
           modules = [
             ./modules/defaults.nix
             ./modules/system/nvidia.nix
@@ -49,7 +54,6 @@
 
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
-            stylix.nixosModules.stylix
             nix-index-database.nixosModules.nix-index
 
             (
@@ -60,6 +64,7 @@
                   useUserPackages = true;
                   extraSpecialArgs = {
                     desktopEnvironment = config.desktop.environment;
+                    inherit pkgsUnstable;
                   };
                   users.senti = import ./home/senti.nix;
                   backupFileExtension = "hm-bak";
@@ -68,21 +73,21 @@
             )
           ];
         };
+
         laptop = nixpkgs.lib.nixosSystem {
           inherit system;
+
+          specialArgs = {
+            inherit pkgsUnstable;
+          };
+
           modules = [
             ./modules/defaults.nix
             ./hosts/laptop
 
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
-            stylix.nixosModules.stylix
             nix-index-database.nixosModules.nix-index
-
-            {
-              stylix.enable = false;
-              stylix.image = ./assets/wallpapers/wallpaper.png;
-            }
 
             (
               { config, ... }:
@@ -92,6 +97,7 @@
                   useUserPackages = true;
                   extraSpecialArgs = {
                     desktopEnvironment = config.desktop.environment;
+                    inherit pkgsUnstable;
                   };
                   users.senti = import ./home/senti.nix;
                   backupFileExtension = "hm-bak";

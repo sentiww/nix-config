@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgsUnstable, ... }:
 {
   home.packages = with pkgs; [
     # Day to day
@@ -39,5 +39,8 @@
 
     # IDE
     jetbrains.rider
+  
+    # AI
+    pkgsUnstable.opencode
   ];
 }
