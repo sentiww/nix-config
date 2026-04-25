@@ -12,6 +12,7 @@
     blender
     teams-for-linux
     bitwarden-desktop
+    obsidian
     networkmanagerapplet
     pamixer
     playerctl
