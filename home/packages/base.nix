@@ -42,7 +42,7 @@
 
     # IDE
     jetbrains.rider
-  
+
     # AI
     pkgsUnstable.opencode
   ];

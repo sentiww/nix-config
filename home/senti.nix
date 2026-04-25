@@ -1,5 +1,4 @@
-_:
-{
+_: {
   imports = [
     ./desktop-selection.nix
     ./programs
