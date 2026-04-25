@@ -18,5 +18,6 @@
     fishPlugins.grc
     grc
     wofi
+    pkgs.kimaki
   ];
 }

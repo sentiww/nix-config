@@ -19,10 +19,12 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
   };
 
   outputs =
     {
+      self,
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
@@ -37,14 +39,27 @@
         inherit system;
         config.allowUnfree = true;
       };
+
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [
+          (import ./overlays/kimaki.nix)
+        ];
+      };
     in
     {
+      legacyPackages.${system} = {
+        inherit (pkgs) kimaki;
+      };
+
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
           inherit system;
 
           specialArgs = {
             inherit pkgsUnstable;
+            inherit pkgs;
           };
 
           modules = [
@@ -79,6 +94,7 @@
 
           specialArgs = {
             inherit pkgsUnstable;
+            inherit pkgs;
           };
 
           modules = [
