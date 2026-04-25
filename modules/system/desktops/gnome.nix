@@ -29,16 +29,19 @@ let
 in
 {
   config = lib.mkIf isGnome {
-    services.xserver = {
-      enable = true;
+    services = {
       displayManager.gdm = {
         enable = true;
         wayland = true;
       };
       desktopManager.gnome.enable = true;
+    };
+
+    services.xserver = {
+      enable = true;
       xkb = {
-        layout = "us"; # Keyboard layout
-        variant = ""; # Keyboard variant
+        layout = "us";
+        variant = "";
       };
     };
 
@@ -63,7 +66,7 @@ in
       font-awesome
       nerd-fonts.symbols-only
       noto-fonts
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       jetbrains-mono
     ];
   };

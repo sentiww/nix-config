@@ -1,6 +1,8 @@
-_: {
+{ lib, ... }: {
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnsupportedSystem = true;
+  nixpkgs.overlays = lib.mkForce [];
+
   imports = [
     ./system/boot.nix
     ./system/network.nix

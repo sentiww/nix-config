@@ -32,7 +32,6 @@
     nodePackages.eslint
     nodePackages.prettier
     nodePackages.typescript
-    nodePackages.live-server
 
     # Nix
     nixd

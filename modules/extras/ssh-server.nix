@@ -1,31 +1,30 @@
 { lib, ... }:
 {
-  services = {
-    xserver = {
-      enable = true;
-      displayManager.lightdm.enable = lib.mkForce false;
-      displayManager.gdm.enable = lib.mkForce true;
-      desktopManager.gnome.enable = true;
-      videoDrivers = [ "dummy" ];
-      xrandrHeads = [
-        {
-          output = "Virtual-1";
-          primary = true;
-          monitorConfig = ''
-            Option "PreferredMode" "1920x1080"
-          '';
-        }
-      ];
-    };
-
-    xrdp = {
-      enable = true;
-      defaultWindowManager = "gnome-session";
-    };
-
-    displayManager.autoLogin.enable = false;
-    getty.autologinUser = null;
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "dummy" ];
+    xrandrHeads = [
+      {
+        output = "Virtual-1";
+        primary = true;
+        monitorConfig = ''
+          Option "PreferredMode" "1920x1080"
+        '';
+      }
+    ];
   };
+
+  services.displayManager.gdm.enable = lib.mkForce true;
+
+  services.desktopManager.gnome.enable = true;
+
+  services.xrdp = {
+    enable = true;
+    defaultWindowManager = "gnome-session";
+  };
+
+  services.displayManager.autoLogin.enable = false;
+  services.getty.autologinUser = null;
 
   environment.etc."X11/xorg.conf.d/10-dummy.conf".text = ''
     Section "Device"
