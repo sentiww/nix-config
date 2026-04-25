@@ -33,6 +33,9 @@
     nodePackages.typescript
     nodePackages.live-server
 
+    # Nix
+    nixd
+
     # IAC
     terraform
     act
