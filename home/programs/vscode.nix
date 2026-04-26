@@ -34,6 +34,9 @@ in
       default = {
         enableUpdateCheck = false;
         enableExtensionUpdateCheck = false;
+        extensions = with pkgs.vscode-extensions; [
+          ms-vscode-remote.remote-containers
+        ];
       };
 
       dotnet = {
