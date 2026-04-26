@@ -6,22 +6,23 @@
 }:
 let
   gtkTheme = {
-    name = "Flat-Remix-GTK-Red-Darkest-fullPanel";
-    package = pkgs.flat-remix-gtk;
+    name = "nordic";
+    package = pkgs.nordic;
   };
   iconTheme = {
-    name = "Flat-Remix-Red-Dark";
-    package = pkgs.flat-remix-icon-theme;
+    name = "Nordzy";
+    package = pkgs.nordzy-icon-theme;
   };
   shellTheme = {
-    name = "Qogir-ubuntu-dark";
-    package = pkgs.qogir-theme;
+    name = "nordic";
+    package = pkgs.nordic;
   };
   cursorTheme = {
-    name = "Bibata-Modern-Ice";
-    package = pkgs.bibata-cursors;
+    name = "Nordzy";
+    package = pkgs.nordzy-cursor-theme;
     size = 24;
   };
+  accentColor = "#81A1C1";
   wallpaperSource = ../../assets/wallpapers/wallpaper.png;
   wallpaperTarget = "${config.home.homeDirectory}/.local/share/backgrounds/nixos-gnome.png";
   conkyConfig = ''
@@ -30,7 +31,7 @@ let
           background = true;
           default_color = '#f6f6f6';
           double_buffer = true;
-          font = 'Cantarell 11';
+          font = 'JetBrains Mono 11';
           gap_x = 60;
           gap_y = 60;
           minimum_height = 400;
@@ -49,15 +50,15 @@ let
 
         conky.text = [[
     ''${image ~/.config/conky/alterf/assets/overlay.png -p 0,0 -s 260x260}
-    ''${offset 20}''${font Cantarell:bold:size=26}''${color #ff4d67}''${time %H:%M}
-    ''${offset 20}''${font Cantarell:size=12}''${color #f6f6f6}''${time %A, %d %B}
+    ''${offset 20}''${font JetBrains Mono:bold:size=26}''${color #81A1C1}''${time %H:%M}
+    ''${offset 20}''${font JetBrains Mono:size=12}''${color #f6f6f6}''${time %A, %d %B}
 
-    ''${offset 20}''${color #ff4d67}CPU ''${color #f6f6f6}''${cpu cpu0}% ''${cpubar 6,110}
-    ''${offset 20}''${color #ff4d67}GPU ''${color #f6f6f6}''${exec bash -c "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits 2>/dev/null | head -n1 || echo N/A"}%
-    ''${offset 20}''${color #ff4d67}RAM ''${color #f6f6f6}''${memperc}% ''${membar 6,110}
-    ''${offset 20}''${color #ff4d67}NET ''${if_up enp3s0}''${color #f6f6f6}⬆ ''${upspeed enp3s0} ⬇ ''${downspeed enp3s0}''${else}''${if_up wlp3s0}''${color #f6f6f6}⬆ ''${upspeed wlp3s0} ⬇ ''${downspeed wlp3s0}''${else}''${color #f6f6f6}No link''${endif}''${endif}
+    ''${offset 20}''${color #81A1C1}CPU ''${color #f6f6f6}''${cpu cpu0}% ''${cpubar 6,110}
+    ''${offset 20}''${color #81A1C1}GPU ''${color #f6f6f6}''${exec bash -c "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits 2>/dev/null | head -n1 || echo N/A"}%
+    ''${offset 20}''${color #81A1C1}RAM ''${color #f6f6f6}''${memperc}% ''${membar 6,110}
+    ''${offset 20}''${color #81A1C1}NET ''${if_up enp3s0}''${color #f6f6f6}⬆ ''${upspeed enp3s0} ⬇ ''${downspeed enp3s0}''${else}''${if_up wlp3s0}''${color #f6f6f6}⬆ ''${upspeed wlp3s0} ⬇ ''${downspeed wlp3s0}''${else}''${color #f6f6f6}No link''${endif}''${endif}
 
-    ''${offset 20}''${color #ff4d67}''${font Cantarell:bold:size=14}Now Playing
+    ''${offset 20}''${color #81A1C1}''${font JetBrains Mono:bold:size=14}Now Playing
     ''${offset 20}''${color #f6f6f6}''${exec playerctl metadata --format '{{ artist }} - {{ title }}'}
         ]];
   '';
@@ -70,6 +71,9 @@ in
       gtkTheme.package
       iconTheme.package
       shellTheme.package
+      pkgs.nordzy-cursor-theme
+      pkgs.gnomeExtensions.arcmenu
+      pkgs.gnomeExtensions.blur-my-shell
     ]
   );
 
@@ -79,13 +83,17 @@ in
     inherit iconTheme cursorTheme;
   };
 
+  home.sessionVariables = {
+    XCURSOR_PATH = "/run/current-system/sw/share/icons:~/.local/share/icons:${pkgs.nordzy-cursor-theme}/share/icons";
+  };
+
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
       cursor-theme = cursorTheme.name;
       cursor-size = cursorTheme.size;
       enable-hot-corners = false;
-      font-name = "Cantarell 11";
+      font-name = "JetBrains Mono 11";
       icon-theme = iconTheme.name;
       gtk-theme = gtkTheme.name;
       monospace-font-name = "JetBrains Mono 11";
@@ -131,6 +139,7 @@ in
         "desktop-cube@schneegans.github.com"
         "just-perfection-desktop@just-perfection"
         "user-theme@gnome-shell-extensions.gcampax.github.com"
+        "arcmenu@arcmenu.com"
       ];
       favorite-apps = [
         "firefox.desktop"
