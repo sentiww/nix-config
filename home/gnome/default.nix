@@ -18,7 +18,7 @@ let
     package = pkgs.nordic;
   };
   cursorTheme = {
-    name = "Nordzy";
+    name = "Nordzy-cursors-white";
     package = pkgs.nordzy-cursor-theme;
     size = 24;
   };
