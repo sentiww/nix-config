@@ -23,8 +23,10 @@ let
     size = 24;
   };
   accentColor = "#81A1C1";
+  assetsIcons = ../../assets/icons;
   wallpaperSource = ../../assets/wallpapers/wallpaper.png;
   wallpaperTarget = "${config.home.homeDirectory}/.local/share/backgrounds/nixos-gnome.png";
+
   conkyConfig = ''
         conky.config = {
           alignment = 'top_right';
@@ -87,6 +89,13 @@ in
     XCURSOR_PATH = "/run/current-system/sw/share/icons:~/.local/share/icons:${pkgs.nordzy-cursor-theme}/share/icons";
   };
 
+  xdg.configFile."mimeapps.list".text = ''
+    [Default Applications]
+    x-scheme-handler/http=firefox.desktop
+    x-scheme-handler/https=firefox.desktop
+    text/html=firefox.desktop
+  '';
+
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
@@ -138,6 +147,7 @@ in
         "cpupower@sri"
         "desktop-cube@schneegans.github.com"
         "just-perfection-desktop@just-perfection"
+        "gsconnect@andyholmes.github.io"
         "user-theme@gnome-shell-extensions.gcampax.github.com"
         "arcmenu@arcmenu.com"
       ];
@@ -145,6 +155,7 @@ in
         "firefox.desktop"
         "org.gnome.Nautilus.desktop"
         "kitty.desktop"
+        "obsidian.desktop"
         "org.gnome.Settings.desktop"
         "thunderbird.desktop"
       ];
@@ -152,6 +163,21 @@ in
 
     "org/gnome/shell/extensions/user-theme" = {
       inherit (shellTheme) name;
+    };
+
+    "org/gnome/shell/extensions/arcmenu" = {
+      menu-button-appearance = "Icon";
+      menu-button-icon = "Distro_Icon";
+      menu-button-border-radius = "(true, 0)";
+      menu-button-border-width = "(true, 0)";
+      menu-button-hover-bg-color = "(true, rgba(242,242,242,0.15))";
+      menu-button-hover-fg-color = "(false, rgb(242,242,242))";
+      distro-icon = 22;
+      custom-menu-button-icon-size = 32.0;
+    };
+
+    "org/gnome/shell/extensions/dash-to-panel" = {
+      panel-element-positions = ''{"BOE-0x00000000":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}]}'';
     };
   };
 
