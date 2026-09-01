@@ -15,7 +15,6 @@
   };
 
   services.displayManager.gdm.enable = lib.mkForce true;
-
   services.desktopManager.gnome.enable = true;
 
   services.xrdp = {
@@ -46,7 +45,6 @@
   '';
 
   environment.variables.WLR_NO_HARDWARE_CURSORS = "1";
-
   networking.firewall.allowedTCPPorts = [ 3389 ];
 
   systemd.targets = {

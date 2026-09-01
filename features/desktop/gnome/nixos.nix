@@ -36,21 +36,22 @@ in
         wayland = true;
       };
       desktopManager.gnome.enable = true;
-    };
-
-    services.xserver = {
-      enable = true;
-      xkb = {
-        layout = "us";
-        variant = "";
+      xserver = {
+        enable = true;
+        xkb = {
+          layout = "us";
+          variant = "";
+        };
       };
+      gnome.gnome-keyring.enable = true;
     };
 
-    services.gnome.gnome-keyring.enable = true;
-    programs.dconf.enable = true;
-    programs.kdeconnect = {
-      enable = true;
-      package = pkgs.gnomeExtensions.gsconnect;
+    programs = {
+      dconf.enable = true;
+      kdeconnect = {
+        enable = true;
+        package = pkgs.gnomeExtensions.gsconnect;
+      };
     };
 
     xdg.portal = {
@@ -65,7 +66,10 @@ in
       ];
     };
 
-    environment.systemPackages = [ pkgs.gnome-tweaks ] ++ extensionPackages;
+    environment.systemPackages = [
+      pkgs.gnome-tweaks
+      pkgs.wofi
+    ] ++ extensionPackages;
 
     fonts.packages = with pkgs; [
       font-awesome

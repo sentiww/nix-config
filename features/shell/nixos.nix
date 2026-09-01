@@ -1,9 +1,5 @@
 { pkgs, ... }:
 {
-  imports = [
-    ./programs
-  ];
-
   environment.systemPackages = with pkgs; [
     git
     curl
@@ -17,7 +13,6 @@
     fzf
     fishPlugins.grc
     grc
-    wofi
     pkgs.kimaki
   ];
 }

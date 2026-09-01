@@ -1,10 +1,8 @@
 { config, pkgs, ... }:
 {
-  hardware.graphics = {
-    enable = true; # Enable OpenGL
-  };
+  hardware.graphics.enable = true;
 
-  services.xserver.videoDrivers = [ "nvidia" ]; # NVIDIA drivers for Xorg and Wayland
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
     modesetting.enable = true;
@@ -15,7 +13,6 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # Preserve VRAM across hibernation
   boot.extraModprobeConfig = ''
     options nvidia NVreg_PreserveVideoMemoryAllocations=1 NVreg_TemporaryFilePath=/var/tmp
   '';

@@ -38,12 +38,18 @@
 
       pkgsUnstable = import nixpkgs-unstable {
         inherit system;
-        config.allowUnfree = true;
+        config = {
+          allowUnfree = true;
+          allowUnsupportedSystem = true;
+        };
       };
 
       pkgs = import nixpkgs {
         inherit system;
-        config.allowUnfree = true;
+        config = {
+          allowUnfree = true;
+          allowUnsupportedSystem = true;
+        };
         overlays = [
           (import ./overlays/kimaki.nix)
         ];
@@ -58,7 +64,7 @@
         desktop = mkHost {
           inherit system nixpkgs pkgs pkgsUnstable home-manager sops-nix nix-index-database;
           hostPath = ./hosts/desktop;
-          extraModules = [ ./modules/system/nvidia.nix ];
+          extraModules = [ ./features/hardware/nvidia.nix ];
         };
 
         laptop = mkHost {
