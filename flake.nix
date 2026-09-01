@@ -62,18 +62,18 @@
 
       nixosConfigurations = {
         desktop = mkHost {
-          inherit system nixpkgs pkgs pkgsUnstable home-manager sops-nix nix-index-database;
+          inherit system nixpkgs pkgsUnstable home-manager sops-nix nix-index-database;
           hostPath = ./hosts/desktop;
           extraModules = [ ./features/hardware/nvidia.nix ];
         };
 
         laptop = mkHost {
-          inherit system nixpkgs pkgs pkgsUnstable home-manager sops-nix nix-index-database;
+          inherit system nixpkgs pkgsUnstable home-manager sops-nix nix-index-database;
           hostPath = ./hosts/laptop;
         };
 
         x1 = mkHost {
-          inherit system nixpkgs pkgs pkgsUnstable home-manager sops-nix nix-index-database;
+          inherit system nixpkgs pkgsUnstable home-manager sops-nix nix-index-database;
           hostPath = ./hosts/x1;
         };
       };

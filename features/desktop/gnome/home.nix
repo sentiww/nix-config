@@ -22,9 +22,7 @@ let
     package = pkgs.nordzy-cursor-theme;
     size = 24;
   };
-  accentColor = "#81A1C1";
-  assetsIcons = ../../assets/icons;
-  wallpaperSource = ../../assets/wallpapers/wallpaper.png;
+  wallpaperSource = ../../../assets/wallpapers/wallpaper.png;
   wallpaperTarget = "${config.home.homeDirectory}/.local/share/backgrounds/nixos-gnome.png";
 
   conkyConfig = ''
@@ -184,7 +182,7 @@ in
   home.file.".local/share/backgrounds/nixos-gnome.png".source = wallpaperSource;
 
   xdg.configFile."conky/alterf.conf".text = conkyConfig;
-  xdg.configFile."conky/alterf/assets/overlay.png".source = ../../assets/conky/alterf/overlay.png;
+  xdg.configFile."conky/alterf/assets/overlay.png".source = ../../../assets/conky/alterf/overlay.png;
 
   systemd.user.services.conky-alterf = {
     Unit = {

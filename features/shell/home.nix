@@ -1,4 +1,26 @@
-_: {
+{ pkgs, ... }:
+{
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      set fish_greeting # Disable greeting
+    '';
+    plugins = [
+      {
+        name = "grc";
+        inherit (pkgs.fishPlugins.grc) src;
+      }
+    ];
+  };
+
+  programs.git = {
+    enable = true;
+    settings.user = {
+      name = "sentiww";
+      email = "wojciech.warwas01@gmail.com";
+    };
+  };
+
   programs.kitty = {
     enable = true;
     settings = {

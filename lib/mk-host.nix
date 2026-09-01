@@ -1,7 +1,6 @@
 {
   system,
   nixpkgs,
-  pkgs,
   pkgsUnstable,
   home-manager,
   sops-nix,
@@ -13,10 +12,21 @@ nixpkgs.lib.nixosSystem {
   inherit system;
 
   specialArgs = {
-    inherit pkgs pkgsUnstable;
+    inherit pkgsUnstable;
   };
 
   modules = [
+    {
+      nixpkgs = {
+        config = {
+          allowUnfree = true;
+          allowUnsupportedSystem = true;
+        };
+        overlays = [
+          (import ./../overlays/kimaki.nix)
+        ];
+      };
+    }
     ./../profiles/base/nixos.nix
   ] ++ extraModules ++ [
     hostPath

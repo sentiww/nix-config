@@ -1,7 +1,7 @@
 { lib, desktopEnvironment, ... }:
 let
   desktopModules = {
-    gnome = ./gnome;
+    gnome = ./gnome/home.nix;
   };
   selectedModule = lib.getAttr desktopEnvironment desktopModules;
 in

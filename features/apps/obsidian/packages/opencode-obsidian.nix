@@ -1,21 +1,21 @@
 { pkgs, ... }:
 let
-  mainjs_url = "https://github.com/TfTHacker/obsidian42-brat/releases/download/2.0.4/main.js";
-  mainjs_hash = "sha256-N3ymmpTXRQzodQVzDz9XdpjHwvYlT/SMmD1264zr+qY=";
+  mainjs_url = "https://github.com/mtymek/opencode-obsidian/releases/download/v0.2.1/main.js";
+  mainjs_hash = "sha256-i1rnCBRCkKjSh737HHkp6iOYcGc0iE5/gWkcq1HbFT4=";
   mainjs = pkgs.fetchurl {
     url = mainjs_url;
     hash = mainjs_hash;
   };
 in
 pkgs.stdenv.mkDerivation rec {
-  pname = "obsidian42-brat";
-  version = "2.0.4";
+  pname = "opencode-obsidian";
+  version = "0.2.1";
 
   src = pkgs.fetchFromGitHub {
-    owner = "TfTHacker";
-    repo = "obsidian42-brat";
-    rev = version;
-    hash = "sha256-2a0syztvxAw3kj5t4HRIa/BVZDx9fxWD8iaA6IvecIA=";
+    owner = "mtymek";
+    repo = "opencode-obsidian";
+    rev = "v${version}";
+    hash = "sha256-gX9PCzuXi0vkiQzmnJrhPG/aedExPOvsVAXFUERIo0c=";
   };
 
   dontBuild = true;
