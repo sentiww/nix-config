@@ -34,15 +34,22 @@
     }:
     let
       system = "x86_64-linux";
+      mkHost = import ./lib/mk-host.nix;
 
       pkgsUnstable = import nixpkgs-unstable {
         inherit system;
-        config.allowUnfree = true;
+        config = {
+          allowUnfree = true;
+          allowUnsupportedSystem = true;
+        };
       };
 
       pkgs = import nixpkgs {
         inherit system;
-        config.allowUnfree = true;
+        config = {
+          allowUnfree = true;
+          allowUnsupportedSystem = true;
+        };
         overlays = [
           (import ./overlays/kimaki.nix)
         ];
@@ -54,107 +61,20 @@
       };
 
       nixosConfigurations = {
-        desktop = nixpkgs.lib.nixosSystem {
-          inherit system;
-
-          specialArgs = {
-            inherit pkgsUnstable;
-            inherit pkgs;
-          };
-
-          modules = [
-            ./modules/defaults.nix
-            ./modules/system/nvidia.nix
-            ./hosts/desktop
-
-            sops-nix.nixosModules.sops
-            home-manager.nixosModules.home-manager
-            nix-index-database.nixosModules.nix-index
-
-            (
-              { config, ... }:
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  extraSpecialArgs = {
-                    desktopEnvironment = config.desktop.environment;
-                    inherit pkgsUnstable;
-                  };
-                  users.senti = import ./home/senti.nix;
-                  backupFileExtension = "hm-bak";
-                };
-              }
-            )
-          ];
+        desktop = mkHost {
+          inherit system nixpkgs pkgsUnstable home-manager sops-nix nix-index-database;
+          hostPath = ./hosts/desktop;
+          extraModules = [ ./features/hardware/nvidia.nix ];
         };
 
-        laptop = nixpkgs.lib.nixosSystem {
-          inherit system;
-
-          specialArgs = {
-            inherit pkgsUnstable;
-            inherit pkgs;
-          };
-
-          modules = [
-            ./modules/defaults.nix
-            ./hosts/laptop
-
-            sops-nix.nixosModules.sops
-            home-manager.nixosModules.home-manager
-            nix-index-database.nixosModules.nix-index
-
-            (
-              { config, ... }:
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  extraSpecialArgs = {
-                    desktopEnvironment = config.desktop.environment;
-                    inherit pkgsUnstable;
-                  };
-                  users.senti = import ./home/senti.nix;
-                  backupFileExtension = "hm-bak";
-                };
-              }
-            )
-          ];
+        laptop = mkHost {
+          inherit system nixpkgs pkgsUnstable home-manager sops-nix nix-index-database;
+          hostPath = ./hosts/laptop;
         };
 
-        x1 = nixpkgs.lib.nixosSystem {
-          inherit system;
-
-          specialArgs = {
-            inherit pkgsUnstable;
-            inherit pkgs;
-          };
-
-          modules = [
-            ./modules/defaults.nix
-            ./hosts/x1
-
-            sops-nix.nixosModules.sops
-            home-manager.nixosModules.home-manager
-            nix-index-database.nixosModules.nix-index
-
-            (
-              { config, ... }:
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  extraSpecialArgs = {
-                    desktopEnvironment = config.desktop.environment;
-                    inherit pkgsUnstable;
-                  };
-                  users.senti = import ./home/senti.nix;
-                  backupFileExtension = "hm-bak";
-                };
-              }
-            )
-          ];
+        x1 = mkHost {
+          inherit system nixpkgs pkgsUnstable home-manager sops-nix nix-index-database;
+          hostPath = ./hosts/x1;
         };
       };
     };
