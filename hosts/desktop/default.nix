@@ -2,7 +2,6 @@ _: {
   imports = [
     ./hardware-configuration.nix
     ../../features/remote-access/ssh-client.nix
-    ../../features/remote-access/xrdp-server.nix
     ../../features/hardware/rtl-sdr.nix
   ];
 
