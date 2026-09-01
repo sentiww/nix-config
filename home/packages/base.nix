@@ -2,7 +2,6 @@
 {
   home.packages = with pkgs; [
     # Day to day
-    firefox
     thunderbird
     steam
     discord

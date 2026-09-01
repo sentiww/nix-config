@@ -122,6 +122,40 @@
             )
           ];
         };
+
+        x1 = nixpkgs.lib.nixosSystem {
+          inherit system;
+
+          specialArgs = {
+            inherit pkgsUnstable;
+            inherit pkgs;
+          };
+
+          modules = [
+            ./modules/defaults.nix
+            ./hosts/x1
+
+            sops-nix.nixosModules.sops
+            home-manager.nixosModules.home-manager
+            nix-index-database.nixosModules.nix-index
+
+            (
+              { config, ... }:
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  extraSpecialArgs = {
+                    desktopEnvironment = config.desktop.environment;
+                    inherit pkgsUnstable;
+                  };
+                  users.senti = import ./home/senti.nix;
+                  backupFileExtension = "hm-bak";
+                };
+              }
+            )
+          ];
+        };
       };
     };
 }
