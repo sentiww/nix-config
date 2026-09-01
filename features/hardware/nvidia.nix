@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 {
   hardware.graphics.enable = true;
 
@@ -16,10 +16,6 @@
   boot.extraModprobeConfig = ''
     options nvidia NVreg_PreserveVideoMemoryAllocations=1 NVreg_TemporaryFilePath=/var/tmp
   '';
-
-  environment.systemPackages = with pkgs; [
-    nvtopPackages.nvidia
-  ];
 
   environment.sessionVariables = {
     GBM_BACKEND = "nvidia-drm";
