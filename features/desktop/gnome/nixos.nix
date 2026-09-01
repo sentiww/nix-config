@@ -11,7 +11,6 @@ let
       requestedExtensions = [
         "appindicator"
         "blur-my-shell"
-        "gsconnect"
         "tiling-assistant"
         "dash-to-panel"
         "vitals"
@@ -46,13 +45,7 @@ in
       gnome.gnome-keyring.enable = true;
     };
 
-    programs = {
-      dconf.enable = true;
-      kdeconnect = {
-        enable = true;
-        package = pkgs.gnomeExtensions.gsconnect;
-      };
-    };
+    programs.dconf.enable = true;
 
     xdg.portal = {
       enable = true;

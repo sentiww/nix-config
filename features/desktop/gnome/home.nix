@@ -145,7 +145,6 @@ in
         "cpupower@sri"
         "desktop-cube@schneegans.github.com"
         "just-perfection-desktop@just-perfection"
-        "gsconnect@andyholmes.github.io"
         "user-theme@gnome-shell-extensions.gcampax.github.com"
         "arcmenu@arcmenu.com"
       ];
